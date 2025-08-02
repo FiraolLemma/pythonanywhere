@@ -23,7 +23,6 @@ urlpatterns += i18n_patterns(
     path('companies/', include('companies.urls')),
     path('vehicles/', include('vehicles.urls')),
     path('clothings/', include('clothings.urls')),
-    # for houses and electronics
     path('electronics/', include('electronics.urls', namespace='electronics')),
     path('houses/', include('houses.urls', namespace='houses')),
 
