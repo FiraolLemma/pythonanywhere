@@ -196,7 +196,7 @@
 }
 
 .save-vehicle {
-    background: white;
+    background: linear-gradient(130deg, #f5f5f5, #e0e0e0, rgb(138, 228, 208), rgb(79, 199, 173));
     color: var(--text-color);
     border: 1px solid var(--border-color);
 }
@@ -498,3 +498,8 @@
         font-size: 1.5rem;
     }
 }
+
+
+
+
+

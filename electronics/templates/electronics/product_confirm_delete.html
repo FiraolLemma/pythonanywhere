@@ -1,0 +1,39 @@
+<!-- electronics/templates/product_confirm_delete.html -->
+ {% extends 'base/base.html' %}
+{% csrf_token %}
+{% load static %}
+{% load i18n %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'electronics/css/product_confirm_delete.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="delete-product-container">
+    <div class="delete-product-box">
+        <div class="delete-product-header">
+            <h4 class="delete-product-title">Delete Product</h4>
+        </div>
+        <div class="delete-product-body">
+            <p>Are you sure you want to delete the product <strong>"{{ product.name }}"</strong>?</p>
+            <p>This action cannot be undone.</p>
+            
+            <form method="post">
+                {% csrf_token %}
+                <div class="delete-product-actions">
+                    <a href="{% url 'electronics:product_detail' product.id %}" class="cancel-button">
+                        Cancel
+                    </a>
+                    <button type="submit" class="confirm-delete-button">
+                        🗑 Confirm Delete
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script src="{% static 'electronics/js/product_confirm_delete.js' %}"></script>
+{% endblock %}

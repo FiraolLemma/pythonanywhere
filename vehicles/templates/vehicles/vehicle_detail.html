@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/css/lightgallery-bundle.min.css">
 {% endblock %}
-
+ 
 {% block content %}
 <div class="vehicle-detail-container">
     <!-- Vehicle Header -->
@@ -31,6 +31,8 @@
                      alt="{{ vehicle.make }} {{ vehicle.model }}" 
                      data-lg-size="{{ vehicle.images.first.image.width }}-{{ vehicle.images.first.image.height }}"
                      class="gallery-item">
+            <div class="interaction-buttons">
+    </div>
             </div>
             <div class="thumbnail-container">
                 {% for image in vehicle.images.all %}
@@ -49,22 +51,30 @@
             <div class="price-section">
                 <h2 class="price">${{ vehicle.price|floatformat:"0" }}</h2>
                 <div class="price-meta">
-                    <span class="estimated-payment">
-                        <i class="fas fa-calculator"></i> 
-                        {% trans "Est. $" %}{{ vehicle.monthly_payment|default:"450" }}/mo
-                    </span>
                     <span class="price-negotiable">
                         <i class="fas fa-tag"></i> 
                         {% if vehicle.price_negotiable %}{% trans "Negotiable" %}{% else %}{% trans "Fixed Price" %}{% endif %}
                     </span>
                 </div>
                 <div class="action-buttons">
-                    <button class="contact-seller">
-                        <i class="fas fa-envelope"></i> {% trans "Contact Seller" %}
+                
+                        <button type="button" 
+                class="interaction-button like-button contact-seller"
+                aria-label="Like this vehicle"
+                data-item-id="{{ vehicle.id }}"
+                data-action="like">
+            <i class="fas fa-thumbs-up" aria-hidden="true"></i> 
+            <span class="interaction-count">{{ vehicle.like_count }}</span>
+        
                     </button>
-                    <button class="save-vehicle">
-                        <i class="far fa-heart"></i> {% trans "Save" %}
-                    </button>
+                    <button type="button" 
+                class="interaction-button share-button save-vehicle"
+                aria-label="Share this vehicle"
+                data-item-id="{{ vehicle.id }}"
+                data-action="share"> 
+            <i class="fas fa-share-alt" aria-hidden="true"></i> 
+            <span class="interaction-count">{{ vehicle.share_count }}</span>
+        </button>
                 </div>
             </div>
 
@@ -112,35 +122,6 @@
         </div>
 
         <!-- Full Specifications -->
-        <div class="detail-section">
-            <h2><i class="fas fa-cogs"></i> {% trans "Full Specifications" %}</h2>
-            <div class="specs-table">
-                <div class="spec-row">
-                    <div class="spec-name">{% trans "Make" %}</div>
-                    <div class="spec-value">{{ vehicle.make }}</div>
-                </div>
-                <div class="spec-row">
-                    <div class="spec-name">{% trans "Model" %}</div>
-                    <div class="spec-value">{{ vehicle.model }}</div>
-                </div>
-                <div class="spec-row">
-                    <div class="spec-name">{% trans "Trim" %}</div>
-                    <div class="spec-value">{{ vehicle.trim|default:"N/A" }}</div>
-                </div>
-                <div class="spec-row">
-                    <div class="spec-name">{% trans "Transmission" %}</div>
-                    <div class="spec-value">{{ vehicle.get_transmission_display|default:"N/A" }}</div>
-                </div>
-                <div class="spec-row">
-                    <div class="spec-name">{% trans "Drivetrain" %}</div>
-                    <div class="spec-value">{{ vehicle.get_drivetrain_display|default:"N/A" }}</div>
-                </div>
-                <div class="spec-row">
-                    <div class="spec-name">{% trans "VIN" %}</div>
-                    <div class="spec-value">{{ vehicle.vin|default:"N/A" }}</div>
-                </div>
-            </div>
-        </div>
 
         <!-- Seller Information -->
         <div class="detail-section seller-info">

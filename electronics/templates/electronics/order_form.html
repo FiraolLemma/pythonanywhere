@@ -1,0 +1,111 @@
+<!-- electronics/templates/device_detail.html -->
+ {% extends 'base/base.html' %}
+{% csrf_token %}
+{% load static %}
+{% load i18n %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'electronics/css/device_detail.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">Place Order</h4>
+            </div>
+            <div class="card-body">
+                <div class="row mb-4">
+                    <div class="col-md-4">
+                        {% if product.image %}
+                        <img src="{{ product.image.url }}" class="img-fluid rounded" alt="{{ product.name }}">
+                        {% else %}
+                        <div class="bg-secondary text-white d-flex align-items-center justify-content-center" style="height: 150px;">
+                            <i class="bi bi-image" style="font-size: 3rem;"></i>
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-8">
+                        <h5>{{ product.name }}</h5>
+                        <p class="mb-1">{{ product.description|truncatewords:20 }}</p>
+                        <p class="text-primary fw-bold">${{ product.price }}</p>
+                        <p>Seller: {{ product.seller.username }}</p>
+                    </div>
+                </div>
+                
+                <form method="post">
+                    {% csrf_token %}
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="{{ form.quantity.id_for_label }}" class="form-label">Quantity</label>
+                            {{ form.quantity }}
+                            {% if form.quantity.errors %}
+                            <div class="invalid-feedback d-block">
+                                {{ form.quantity.errors }}
+                            </div>
+                            {% endif %}
+                            <small class="text-muted">Available: {{ product.stock }}</small>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="{{ form.payment_method.id_for_label }}" class="form-label">Payment Method</label>
+                            {{ form.payment_method }}
+                            {% if form.payment_method.errors %}
+                            <div class="invalid-feedback d-block">
+                                {{ form.payment_method.errors }}
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="{{ form.shipping_address.id_for_label }}" class="form-label">Shipping Address</label>
+                        {{ form.shipping_address }}
+                        {% if form.shipping_address.errors %}
+                        <div class="invalid-feedback d-block">
+                            {{ form.shipping_address.errors }}
+                        </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="alert alert-info">
+                        <h5>Order Summary</h5>
+                        <div class="d-flex justify-content-between">
+                            <span>Subtotal:</span>
+                            <span id="subtotal">${{ product.price }}</span>
+                        </div>
+                        <div class="d-flex justify-content-between fw-bold">
+                            <span>Total:</span>
+                            <span id="total">${{ product.price }}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary btn-lg">
+                            <i class="bi bi-check-circle"></i> Confirm Order
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
+
+{% block js %}
+<script>
+    document.getElementById('id_quantity').addEventListener('change', function() {
+        const quantity = parseInt(this.value) || 1;
+        const price = {{ product.price }};
+        const subtotal = quantity * price;
+        
+        document.getElementById('subtotal').textContent = '$' + subtotal.toFixed(2);
+        document.getElementById('total').textContent = '$' + subtotal.toFixed(2);
+    });
+</script>
+
+<script src="{% static 'electronics/js/device_detail.js' %}"></script>
+{% endblock %}

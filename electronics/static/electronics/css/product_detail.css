@@ -1,0 +1,372 @@
+/* ===== Base Variables ===== */
+:root {
+  --primary: #4361ee;
+  --primary-light: #4895ef;
+  --primary-dark: #3a0ca3;
+  --secondary: #7209b7;
+  --success: #4cc9f0;
+  --warning: #f8961e;
+  --danger: #f72585;
+  --dark: #1b263b;
+  --gray-dark: #495057;
+  --gray: #adb5bd;
+  --gray-light: #e9ecef;
+  --light: #f8f9fa;
+  --border-radius: 12px;
+  --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* ===== Product Detail Container ===== */
+.product-detail-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 2rem;
+}
+
+/* ===== Image Section ===== */
+.product-image-section {
+  position: sticky;
+  top: 1rem;
+  height: fit-content;
+}
+
+.product-image {
+  width: 100%;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  aspect-ratio: 1/1;
+  object-fit: cover;
+}
+
+.image-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--gray-light);
+  border-radius: var(--border-radius);
+  aspect-ratio: 1/1;
+  color: var(--gray);
+  font-size: 5rem;
+}
+
+/* ===== Info Section ===== */
+.product-info-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.product-info-section h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--dark);
+  margin: 0;
+}
+
+.condition-tag {
+  display: inline-block;
+  padding: 0.35rem 1rem;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.condition-tag.new {
+  background-color: rgba(76, 201, 240, 0.1);
+  color: var(--success);
+  border: 1px solid var(--success);
+}
+
+.condition-tag.used {
+  background-color: rgba(248, 150, 30, 0.1);
+  color: var(--warning);
+  border: 1px solid var(--warning);
+}
+
+.condition-tag.refurbished {
+  background-color: rgba(114, 9, 183, 0.1);
+  color: var(--secondary);
+  border: 1px solid var(--secondary);
+}
+
+.product-description {
+  color: var(--gray-dark);
+  line-height: 1.7;
+  margin: 1rem 0;
+}
+
+/* ===== Price & Stock ===== */
+.price-stock-section {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.price {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin: 0;
+}
+
+.stock-tag {
+  padding: 0.35rem 1rem;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.stock-tag.in-stock {
+  background-color: rgba(76, 201, 240, 0.1);
+  color: var(--success);
+  border: 1px solid var(--success);
+}
+
+.stock-tag.out-of-stock {
+  background-color: rgba(247, 37, 133, 0.1);
+  color: var(--danger);
+  border: 1px solid var(--danger);
+}
+
+/* ===== Action Buttons ===== */
+.action-buttons {
+  display: flex;
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--border-radius);
+  font-weight: 500;
+  text-decoration: none;
+  transition: var(--transition);
+  cursor: pointer;
+}
+
+.btn.primary {
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  color: white;
+  border: none;
+}
+
+.btn.primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(67, 97, 238, 0.3);
+}
+
+.btn.secondary {
+  background-color: white;
+  color: var(--primary);
+  border: 1px solid var(--primary);
+}
+
+.btn.secondary:hover {
+  background-color: var(--gray-light);
+  transform: translateY(-2px);
+}
+
+.btn.outline-primary {
+  background-color: white;
+  color: var(--primary);
+  border: 1px solid var(--primary);
+}
+
+.btn.outline-primary:hover {
+  background-color: rgba(67, 97, 238, 0.1);
+  transform: translateY(-2px);
+}
+
+.btn.outline-danger {
+  background-color: white;
+  color: var(--danger);
+  border: 1px solid var(--danger);
+}
+
+.btn.outline-danger:hover {
+  background-color: rgba(247, 37, 133, 0.1);
+  transform: translateY(-2px);
+}
+
+.btn-group {
+  display: flex;
+  gap: 1rem;
+}
+
+/* ===== Seller Card ===== */
+.seller-card {
+  background-color: white;
+  border-radius: var(--border-radius);
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+  margin-top: 1.5rem;
+}
+
+.seller-card h5 {
+  margin: 0 0 1rem;
+  color: var(--dark);
+}
+
+.seller-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.seller-info i {
+  font-size: 2.5rem;
+  color: var(--gray);
+}
+
+.seller-info h6 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.seller-info small {
+  color: var(--gray);
+}
+
+/* ===== Reviews Section ===== */
+.product-reviews {
+  max-width: 1200px;
+  margin: 3rem auto;
+  padding: 0 2rem;
+}
+
+.product-reviews h4 {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: var(--dark);
+}
+
+.review-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.review-item {
+  background-color: white;
+  border-radius: var(--border-radius);
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+}
+
+.review-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.review-user {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.review-stars {
+  color: var(--warning);
+}
+
+.review-date {
+  color: var(--gray);
+}
+
+.review-comment {
+  color: var(--gray-dark);
+  line-height: 1.7;
+  margin: 0;
+}
+
+.no-reviews {
+  background-color: white;
+  border-radius: var(--border-radius);
+  padding: 2rem;
+  text-align: center;
+  color: var(--gray);
+  box-shadow: var(--shadow);
+}
+
+/* ===== Animations ===== */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.product-detail-container,
+.product-reviews {
+  animation: fadeIn 0.6s ease forwards;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 992px) {
+  .product-detail-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .product-image-section {
+    position: static;
+  }
+}
+
+@media (max-width: 576px) {
+  .action-buttons {
+    flex-direction: column;
+  }
+  
+  .btn-group {
+    flex-direction: column;
+  }
+  
+  .price-stock-section {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+}
+
+
+
+.ripple-effect {
+  position: absolute;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.4);
+  transform: scale(0);
+  animation: ripple 0.6s linear;
+  pointer-events: none;
+}
+
+@keyframes ripple {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+.product-image.zoomed {
+  transform: scale(1.5);
+  cursor: zoom-out;
+  z-index: 100;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1.5);
+  max-width: 90vw;
+  max-height: 90vh;
+  box-shadow: 0 0 0 100vmax rgba(0, 0, 0, 0.8);
+}
+
+.btn.adding {
+  background: linear-gradient(135deg, var(--success), #38b000) !important;
+}

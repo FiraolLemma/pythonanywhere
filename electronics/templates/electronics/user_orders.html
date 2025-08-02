@@ -1,0 +1,67 @@
+<!-- electronics/templates/add_device.html -->
+ {% extends 'base/base.html' %}
+{% csrf_token %}
+{% load static %}
+{% load i18n %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'electronics/css/user_orders.css' %}">
+{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">My Orders</h2>
+
+{% if orders %}
+<div class="table-responsive">
+    <table class="table table-striped table-hover">
+        <thead class="table-primary">
+            <tr>
+                <th>Order #</th>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Total</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for order in orders %}
+            <tr>
+                <td>{{ order.id }}</td>
+                <td>
+                    <a href="{% url 'electronics:product_detail' order.product.id %}">
+                        {{ order.product.name }}
+                    </a>
+                </td>
+                <td>{{ order.quantity }}</td>
+                <td>${{ order.total_price }}</td>
+                <td>{{ order.order_date|date:"M d, Y" }}</td>
+                <td>
+                    <span class="badge bg-{% if order.status == 'completed' %}success{% elif order.status == 'cancelled' %}danger{% else %}warning{% endif %}">
+                        {{ order.status|title }}
+                    </span>
+                </td>
+                <td>
+                    {% if order.status == 'pending' %}
+                    <a href="{% url 'electronics:cancel_order' order.id %}" class="btn btn-sm btn-outline-danger">
+                        Cancel
+                    </a>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<div class="alert alert-info">
+    You haven't placed any orders yet.
+    <a href="{% url 'electronics:product_list' %}" class="alert-link">Browse products</a> to get started.
+</div>
+{% endif %}
+{% endblock %}
+
+{% block js %}
+<script src="{% static 'electronics/js/user_orders.js' %}"></script>
+{% endblock %}

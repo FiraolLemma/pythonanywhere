@@ -1,0 +1,165 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'houses/css/house_form.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<div class="house-form-container">
+    <div class="form-header">
+        <h1 class="form-title">
+            {% if form.instance.pk %}
+                Edit House Listing
+            {% else %}
+                Create New House Listing
+            {% endif %}
+        </h1>
+        <p class="form-subtitle">Fill in the details below</p>
+    </div>
+
+    <form method="post" enctype="multipart/form-data" class="house-form">
+        {% csrf_token %}
+        
+        <div class="form-section">
+            <h2 class="section-title">Basic Information</h2>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="{{ form.title.id_for_label }}">Title</label>
+                    {{ form.title }}
+                    {{ form.title.errors }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.category.id_for_label }}">Category</label>
+                    {{ form.category }}
+                    {{ form.category.errors }}
+                </div>
+            </div>
+        </div>
+
+        <div class="form-section">
+            <h2 class="section-title">Location Details</h2>
+            <div class="form-group">
+                <label for="{{ form.address.id_for_label }}">Address</label>
+                {{ form.address }}
+                {{ form.address.errors }}
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="{{ form.city.id_for_label }}">City</label>
+                    {{ form.city }}
+                    {{ form.city.errors }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.state.id_for_label }}">State</label>
+                    {{ form.state }}
+                    {{ form.state.errors }}
+                </div>
+            </div>
+        </div>
+
+        <div class="form-section">
+            <h2 class="section-title">Property Details</h2>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="{{ form.price.id_for_label }}">Price ($)</label>
+                    {{ form.price }}
+                    {{ form.price.errors }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.area.id_for_label }}">Area (sqm)</label>
+                    {{ form.area }}
+                    {{ form.area.errors }}
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="{{ form.bedrooms.id_for_label }}">Bedrooms</label>
+                    {{ form.bedrooms }}
+                    {{ form.bedrooms.errors }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.bathrooms.id_for_label }}">Bathrooms</label>
+                    {{ form.bathrooms }}
+                    {{ form.bathrooms.errors }}
+                </div>
+            </div>
+        </div>
+
+        <div class="form-section">
+            <h2 class="section-title">Description</h2>
+            <div class="form-group">
+                {{ form.description }}
+                {{ form.description.errors }}
+            </div>
+        </div>
+
+        <div class="form-section">
+            <h2 class="section-title">Images</h2>
+            <div class="form-group">
+                <label for="id_images">Upload Images (Multiple allowed)</label>
+                <div class="file-upload-wrapper">
+                    {{ form.images }}
+                    <div class="file-upload-preview">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <p>Drag & drop files here or click to browse</p>
+                        <div class="preview-container" id="image-preview"></div>
+                    </div>
+                </div>
+                {{ form.images.errors }}
+            </div>
+        </div>
+
+        <div class="form-section">
+            <div class="form-group checkbox-group">
+                {{ form.is_featured }}
+                <label for="{{ form.is_featured.id_for_label }}">Feature this property</label>
+                {{ form.is_featured.errors }}
+            </div>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="submit-btn">
+                {% if form.instance.pk %}
+                    Update Listing
+                {% else %}
+                    Create Listing
+                {% endif %}
+            </button>
+            <a href="{% if form.instance.pk %}{% url 'houses:house_detail' pk=form.instance.pk %}{% else %}{% url 'houses:house_list' %}{% endif %}" class="cancel-btn">
+                Cancel
+            </a>
+        </div>
+    </form>
+</div>
+<div class="form-section">
+    <h2 class="section-title">Images</h2>
+    <div class="form-group">
+        <label for="id_images">Upload Images (Multiple allowed)</label>
+        <div class="file-upload-wrapper">
+            <input type="file" name="images" id="id_images" multiple 
+                   class="file-upload-input" accept="image/*">
+            <div class="file-upload-preview">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <p>Drag & drop files here or click to browse</p>
+                <div class="preview-container" id="image-preview"></div>
+            </div>
+        </div>
+        {% if form.images.errors %}
+            <div class="errorlist">
+                {% for error in form.images.errors %}
+                    <div>{{ error }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}
+
+{% block js %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+<script src="{% static 'houses/js/house_form.js' %}"></script>
+{% endblock %}
